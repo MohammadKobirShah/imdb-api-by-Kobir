@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from fastapi import FastAPI, Query
-import uvicorn
 
 app = FastAPI(title="My IMDb Search API", version="1.0.0")
 
@@ -54,8 +53,3 @@ def search_movies(q: str = Query(..., description="Search term, e.g., borbaad"))
 
     results = extract_results(resp.text)
     return {"query": q, "count": len(results), "results": results}
-
-
-# ----------- Run the server ---------------
-if __name__ == "__main__":
-    uvicorn.run("imdb_api:app", host="127.0.0.1", port=8000, reload=True)
